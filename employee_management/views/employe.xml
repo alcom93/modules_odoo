@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="view_tree_employe" model="ir.ui.view">
+            <field name="name">Employés</field>
+            <field name="model">employe</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_naissance"/>
+                    <field name="phone"/>
+                    <field name="departement_id"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="view_form_employe" model="ir.ui.view">
+            <field name="name">Formulaire employé</field>
+            <field name="model">employe</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date_naissance"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="email"/>
+                            </group>
+                            <group>
+                                    <field name="departement_id"/>
+                                    <field name="responsable_id"/>
+                            </group>
+                            <notebook>
+                                <page string="Contrats">
+                                    <field name="contrat_ids" widget="one2many_list">
+                                        <tree string="Contrats">
+                                            <field name="name"/>
+                                            <field name="date_debut"/>
+                                            <field name="date_fin"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+             </form>
+            </field>
+        </record>
+        <record id="view_tree_departement" model="ir.ui.view">
+            <field name="name">Departements</field>
+            <field name="model">departement</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="responsable_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_form_departement" model="ir.ui.view">
+            <field name="name">Formulaire département</field>
+            <field name="model">departement</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="responsable_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_tree_contrat" model="ir.ui.view">
+            <field name="name">Contrats</field>
+            <field name="model">contrat</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employe_id"/>
+                    <field name="name"/>
+                    <field name="date_debut"/>
+                    <field name="date_fin"/>
+
+                </tree>
+            </field>
+
+        </record>
+            <record id="view_form_contrat" model="ir.ui.view">
+                <field name="name">Formulaire contrat</field>
+                <field name="model">contrat</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <group>
+                                <field name="name"/>
+                                <field name="date_debut"/>
+                                <field name="date_fin"/>
+                                <field name="employe_id"/>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+
+        <menuitem id="menu_employe" name="Employés"/>
+
+        <record id="action_employe" model="ir.actions.act_window">
+            <field name="name">employés</field>
+            <field name="res_model">employe</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_departement" model="ir.actions.act_window">
+            <field name="name">département</field>
+            <field name="res_model">departement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_contrat" model="ir.actions.act_window">
+            <field name="name">contrats</field>
+            <field name="res_model">contrat</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_employe_list"
+                  name="employés"
+                  parent="menu_employe"
+                  action="action_employe"/>
+
+        <menuitem id="menu_departement_list"
+                  name="départements"
+                  parent="menu_employe"
+                  action="action_departement"/>
+
+        <menuitem id="menu_contrat_list"
+                  name="contrats"
+                  parent="menu_employe"
+                  action="action_contrat"/>
+
+
+
+</odoo>
