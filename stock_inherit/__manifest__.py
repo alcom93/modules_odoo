@@ -1,7 +1,7 @@
 {
     'name': "stock inherit",
     'version': '1.0',
-    'depends': ['base','stock'],
+    'depends': ['base','stock','hr'],
     'author': "Nassif,Ousmane, WELE,AIBD",
     'category': 'STOCK',
     'description': """

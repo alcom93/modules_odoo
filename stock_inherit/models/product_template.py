@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 
+
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
@@ -14,13 +15,13 @@ class ProductTemplate(models.Model):
             self.modal_id = False
 
 
-
 class ProductBrand(models.Model):
     _name = 'product.brand'
     _description = 'Product Brand'
 
     name = fields.Char('Brand Name', required=True)
     modal_ids = fields.One2many('product.modal', 'brand_id', string='Modèle')
+
 
 class ProductModal(models.Model):
     _name = 'product.modal'
@@ -29,4 +30,27 @@ class ProductModal(models.Model):
     name = fields.Char('Modèle', required=True)
     brand_id = fields.Many2one('product.brand', string='Marque')
 
+
+class StockMoveLine(models.Model):
+    _inherit = 'stock.move.line'
+    status = fields.Selection(
+        [
+            ('neuf', 'Neuf'),
+            ('perdu', 'Perdu'),
+        ],
+        string='Status', )
+
+    year = fields.Selection(
+        [
+            ('2000', '2000'),
+            ('2010', '2010'),
+        ],
+        string='Annee', )
+
+    cartouche = fields.Char('Cartouche', required=True)
+    os = fields.Char('OS', required=True)
+    description = fields.Char('Description', required=True)
+    remarque = fields.Char('Remarque', required=True)
+
+    employee_id = fields.Many2one('hr.employee', string='Employé')
 
