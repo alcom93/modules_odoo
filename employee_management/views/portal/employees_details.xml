@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <template id="employees_details" inherit_id="portal.portal_sidebar">
+    <xpath expr="//div[contains(@class, 'o_portal_sidebar')]" position="inside">
+        <t t-if="page_name == 'employees_details'">
+            <section>
+                <div class="container">
+                        <div class="row gutters-sm">
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-center text-center">
+                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150" />
+                                        <div class="mt-3">
+                                            <h4><t t-esc="employe.name"/></h4>
+                                            <p class="text-secondary mb-1"><t t-esc="employe.job_title"/></p>
+                                            <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                                            <button class="btn btn-primary">Imprimer</button>
+                                            <button class="btn btn-outline-primary">Partager</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Nom</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <t t-esc="employe.name"/>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Email</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <t t-esc="employe.email"/>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Phone</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <t t-esc="employe.phone"/>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Poste</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <t t-esc="employe.job_title"/>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Département</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <t t-esc="employe.departement_id.name"/>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+                            </div>
+                              <div>
+                                        <h3 style="text-align: center;">Liste des Contrats</h3>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                 <thead>
+                                                    <tr>
+                                                    <th>Type</th>
+                                                    <th>Date de Début</th>
+                                                    <th>Date de Fin</th>
+                                                    </tr>
+
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="employe.contrat_ids" t-as="contrat">
+                                                            <tr>
+                                                            <td><t t-esc="contrat.name" /></td>
+                                                            <td><t t-esc="contrat.date_debut" /></td>
+                                                            <td><t t-esc="contrat.date_fin or 'Indéterminée'" /></td>
+                                                            </tr>
+                                                        </t>
+                                                        <t t-if="not employe.contrat_ids">
+                                                            <tr>
+                                                            <td colspan="6" style="text-align: center;">Pas de contrats trouvés</td>
+                                                            </tr>
+                                                        </t>
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                              </div>
+                        </div>
+                      </div>
+                   </div>
+            </section>
+        </t>
+    </xpath>
+  </template>
+</odoo>

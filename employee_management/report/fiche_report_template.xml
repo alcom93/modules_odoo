@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <template id="fiche_report_template">
+    <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2 style="text-align: center;">Fiche Employé</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Photo</th>
+                                <td>
+                                    <t t-if="employe.photo">
+                                        <img t-att-src="'data:image/png;base64,' + str(employe.photo and employe.photo.decode('utf-8') or '')"
+                                            style="width: 100px; height: 100px; border-radius: 50%;" />
+                                    </t>
+
+                                    <span t-if="not employe.photo">Pas de photo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Nom</th>
+                                <td t-esc="employe.name" />
+                            </tr>
+                            <tr>
+                                <th>Poste</th>
+                                <td t-esc="employe.job_title" />
+                            </tr>
+                            <tr>
+                                <th>Nationalité</th>
+                                <td t-esc="employe.nationality" />
+                            </tr>
+                            <tr>
+                                <th>Genre</th>
+                                <td t-esc="employe.gender" />
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td t-esc="employe.email" />
+                            </tr>
+                            <tr>
+                                <th>Téléphone</th>
+                                <td t-esc="employe.phone" />
+                            </tr>
+                            <tr>
+                                <th>Département</th>
+                                <td t-esc="employe.departement_id.name" />
+                            </tr>
+                        </table>
+                    </div>
+
+                 <div>
+                    <h3 style="text-align: center;">Liste des Contrats</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Date de Début</th>
+                                    <th>Date de Fin</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <t t-foreach="employe.contrat_ids" t-as="contrat">
+                                    <tr>
+                                        <td><t t-esc="contrat.name" /></td>
+                                        <td><t t-esc="contrat.date_debut" /></td>
+                                        <td><t t-esc="contrat.date_fin or 'Indéterminée'" /></td>
+                                    </tr>
+                                </t>
+                                <t t-if="not employe.contrat_ids">
+                                    <tr>
+                                        <td colspan="6" style="text-align: center;">Pas de contrats trouvés</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+</template>
+
+</odoo>

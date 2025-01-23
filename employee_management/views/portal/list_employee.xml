@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="portal_my_home_employees" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[contains(@class, 'o_portal_docs')]" position="inside">
+            <div class="o_portal_doc">
+                <a t-att-href="'/my/employees'" class="list-group-item list-group-item-action">
+                    <span class="fa fa-users"></span>
+                    Employés
+                </a>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="portal_breadcrumbs_employees" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]">
+            <li t-if="page_name == 'employees_list' " class="breadcrumbs-item">Employés </li>
+        </xpath>
+    </template>
+
+    <template id="employees_list" name="Portal Employee List">
+    <t t-call="portal.portal_layout">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-sm-3 col-xs-12">
+                                    <h4 class="title">Employés</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Poste</th>
+                                        <th>Département</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="employe" t-as="employee">
+                                        <tr>
+                                            <td><a class="text-white" t-attf-href="/my/employees/#{employee.access_token}"><t t-esc="employee.name"/></a></td>
+                                            <td><t t-esc="employee.job_title or 'N/A'"/></td>
+                                            <td><t t-esc="employee.departement_id.name or 'N/A'"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+
+        <style>
+            .demo{ font-family: 'Noto Sans', sans-serif; }
+
+            .panel{
+                background: linear-gradient(to right, #2980b9, #2c3e50);
+                padding: 0;
+                border-radius: 10px;
+                border: none;
+                box-shadow: 0 0 0 5px rgba(0,0,0,0.05),0 0 0 10px rgba(0,0,0,0.05);
+            }
+            .panel .panel-heading{
+                padding: 20px 15px;
+                border-radius: 10px 10px 0 0;
+                margin: 0;
+            }
+            .panel .panel-heading .title{
+                color: #fff;
+                font-size: 28px;
+                font-weight: 500;
+                text-transform: capitalize;
+                line-height: 40px;
+                margin: 0;
+            }
+            .panel .panel-heading .btn{
+                color: rgba(255,255,255,0.5);
+                background: transparent;
+                font-size: 16px;
+                text-transform: capitalize;
+                border: 2px solid #fff;
+                border-radius: 50px;
+                transition: all 0.3s ease 0s;
+            }
+            .panel .panel-heading .btn:hover{
+                color: #fff;
+                text-shadow: 3px 3px rgba(255,255,255,0.2);
+            }
+            .panel .panel-heading .form-control{
+                color: #fff;
+                background-color: transparent;
+                width: 35%;
+                height: 40px;
+                border: 2px solid #fff;
+                border-radius: 20px;
+                display: inline-block;
+                transition: all 0.3s ease 0s;
+            }
+            .panel .panel-heading .form-control:focus{
+                background-color: rgba(255,255,255,0.2);
+                box-shadow: none;
+                outline: none;
+            }
+            .panel .panel-heading .form-control::placeholder{
+                color: rgba(255,255,255,0.5);
+                font-size: 15px;
+                font-weight: 500;
+            }
+            .panel .panel-body{ padding: 0; }
+            .panel .panel-body .table thead tr th{
+                color: #fff;
+                background-color: rgba(255, 255, 255, 0.2);
+                font-size: 16px;
+                font-weight: 500;
+                text-transform: uppercase;
+                padding: 12px;
+                border: none;
+            }
+            .panel .panel-body .table tbody tr td{
+                color: #fff;
+                font-size: 15px;
+                padding: 10px 12px;
+                vertical-align: middle;
+                border: none;
+            }
+            .panel .panel-body .table tbody tr:nth-child(even){ background-color: rgba(255,255,255,0.05); }
+
+
+        </style>
+</template>
+</odoo>
