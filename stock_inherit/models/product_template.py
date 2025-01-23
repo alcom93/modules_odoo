@@ -30,27 +30,57 @@ class ProductModal(models.Model):
     name = fields.Char('Modèle', required=True)
     brand_id = fields.Many2one('product.brand', string='Marque')
 
+from odoo import models, fields
 
+# Héritage de `stock.move.line`
 class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
+
     status = fields.Selection(
         [
             ('neuf', 'Neuf'),
             ('perdu', 'Perdu'),
         ],
-        string='Status', )
+        string='Status'
+    )
 
     year = fields.Selection(
         [
             ('2000', '2000'),
             ('2010', '2010'),
         ],
-        string='Annee', )
+        string='Année'
+    )
 
     cartouche = fields.Char('Cartouche', required=True)
-    os = fields.Char('OS', required=True)
-    description = fields.Char('Description', required=True)
-    remarque = fields.Char('Remarque', required=True)
+
+    os = fields.Selection(
+        [
+            ('windows_11', 'Windows 11'),
+            ('windows_10', 'Windows 10'),
+            ('ios', 'iOS'),
+            ('android', 'Android'),
+            ('macos', 'macOS'),
+        ],
+        string='Operating System'
+    )
+
+    description = fields.Text('Description', required=True)
+    remarque = fields.Text('Remarque', required=True)
 
     employee_id = fields.Many2one('hr.employee', string='Employé')
 
+class StockQuant(models.Model):
+    _inherit = 'stock.quant'
+
+    # Champ Many2one pour relier `stock.quant` à un enregistrement `stock.move.line`
+    move_line_id = fields.Many2one('stock.move.line', string="Move Line", ondelete="cascade")
+
+    # Champs relatifs pour récupérer les données de `stock.move.line`
+    status = fields.Selection(related='move_line_id.status', string="Status", store=True)
+    employee_id = fields.Many2one(related='move_line_id.employee_id', string="Employé", store=True)
+    year = fields.Selection(related='move_line_id.year', string="Année", store=True)
+    cartouche = fields.Char(related='move_line_id.cartouche', string="Cartouche", store=True)
+    os = fields.Selection(related='move_line_id.os', string="Operating System", store=True)
+    description = fields.Text(related='move_line_id.description', string="Description", store=True)
+    remarque = fields.Text(related='move_line_id.remarque', string="Remarque", store=True)

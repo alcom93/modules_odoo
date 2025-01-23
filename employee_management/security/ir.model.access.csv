@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_employe,access.employe,model_employe,,1,1,1,1
 access_departement,access.departement,model_departement,,1,1,1,1
 access_contrat,access.contrat,model_contrat,,1,1,1,1
+access_contrat_public,access.contrat,model_contrat,,1,0,0,0

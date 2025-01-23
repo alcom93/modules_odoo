@@ -6,8 +6,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="date_naissance"/>
-                    <field name="phone"/>
+                    <field name="job_title"/>
                     <field name="departement_id"/>
 
                 </tree>
@@ -21,8 +20,14 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="name"/>
+                                <field name="photo" widget="image" class="oe_avatar" options="{'size': [90, 90]}" />
+                                <field name="name" />
+                                <field name="job_title" />
+                            </group>
+                            <group>
+                                <field name="gender" />
                                 <field name="date_naissance"/>
+                                <field name="nationality" />
                             </group>
                             <group>
                                 <field name="phone"/>
@@ -39,6 +44,7 @@
                                             <field name="name"/>
                                             <field name="date_debut"/>
                                             <field name="date_fin"/>
+                                            <field name="file_contrat" string="joindre contrat"/>
                                         </tree>
                                     </field>
                                 </page>
@@ -53,6 +59,7 @@
             <field name="model">departement</field>
             <field name="arch" type="xml">
                 <tree>
+
                     <field name="name"/>
                     <field name="responsable_id"/>
                 </tree>
@@ -81,6 +88,8 @@
                     <field name="name"/>
                     <field name="date_debut"/>
                     <field name="date_fin"/>
+                    <field name="file_contrat"/>
+
 
                 </tree>
             </field>
@@ -97,6 +106,7 @@
                                 <field name="date_debut"/>
                                 <field name="date_fin"/>
                                 <field name="employe_id"/>
+                                <field name="file_contrat"/>
                             </group>
                         </sheet>
                     </form>
@@ -135,7 +145,5 @@
                   name="contrats"
                   parent="menu_employe"
                   action="action_contrat"/>
-
-
 
 </odoo>

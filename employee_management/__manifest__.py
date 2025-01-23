@@ -1,8 +1,8 @@
 {
     'name': "Gestion des employés",
     'version': '1.0',
-    'depends': ['base'],
-    'author': "Ousmane",
+    'depends': ['base', 'website'],
+    'author': "NASSIF",
     'category': 'Human Ressources',
     'description': """
     Généreration de contrat, badge avec qr code
@@ -11,10 +11,10 @@
     'data': [
         'security/ir.model.access.csv',
         'views/employe.xml',
-        'report/contrat_report.xml',
-        'report/contrat_report_template.xml',
         'report/employe_report.xml',
         'report/employe_report_template.xml',
+        'report/fiche_report.xml',
+        'report/fiche_report_template.xml',
 
     ],
     'installable':True,

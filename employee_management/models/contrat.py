@@ -10,5 +10,6 @@ class Contrat(models.Model):
     date_debut = fields.Date(string="Date de début", required=True)
     date_fin = fields.Date(string="Date de fin")
     employe_id = fields.Many2one('employe', string="Employé")
+    file_contrat = fields.Binary(string="Le contrat", required = True)
 
 

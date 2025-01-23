@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="badge_employe" model="ir.actions.report">
-        <field name="name">Employé</field>
+        <field name="name">Télécharger Badge</field>
         <field name="model">employe</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">employe_management.employe_report_template</field>
