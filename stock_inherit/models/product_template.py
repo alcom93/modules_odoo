@@ -46,8 +46,23 @@ class StockMoveLine(models.Model):
 
     year = fields.Selection(
         [
-            ('2000', '2000'),
-            ('2010', '2010'),
+            ('2015', '2015'),
+            ('2016', '2016'),
+            ('2017', '2017'),
+            ('2018', '2018'),
+            ('2019', '2019'),
+            ('2020', '2020'),
+            ('2021', '2021'),
+            ('2022', '2022'),
+            ('2023', '2023'),
+            ('2024', '2024'),
+            ('2025', '2025'),
+            ('2026', '2026'),
+            ('2027', '2027'),
+            ('2028', '2028'),
+            ('2029', '2029'),
+            ('2030', '2030'),
+
         ],
         string='Année'
     )
@@ -58,17 +73,45 @@ class StockMoveLine(models.Model):
         [
             ('windows_11', 'Windows 11'),
             ('windows_10', 'Windows 10'),
-            ('ios', 'iOS'),
             ('android', 'Android'),
+            ('ios', 'ios'),
             ('macos', 'macOS'),
         ],
         string='Operating System'
     )
 
-    description = fields.Text('Description', required=True)
-    remarque = fields.Text('Remarque', required=True)
+    description = fields.Text('Description')
+    remarque = fields.Text('Remarque')
 
     employee_id = fields.Many2one('hr.employee', string='Employé')
+
+
+    @api.model
+    def _action_done(self):
+
+        res = super(StockMoveLine, self)._action_done()
+
+        for move_line in self:
+
+            quants = self.env['stock.quant'].search([
+                ('product_id', '=', move_line.product_id.id),
+                ('location_id', '=', move_line.location_dest_id.id)
+            ])
+
+            for quant in quants:
+                quant.write({
+                    'move_line_id': move_line.id,  # Link quant to move line
+                    'status': move_line.status,
+                    'employee_id': move_line.employee_id.id,
+                    'year': move_line.year,
+                    'cartouche': move_line.cartouche,
+                    'os': move_line.os,
+                    'description': move_line.description,
+                    'remarque': move_line.remarque,
+                })
+
+        return res
+
 
 class StockQuant(models.Model):
     _inherit = 'stock.quant'
