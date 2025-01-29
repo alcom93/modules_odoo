@@ -1,12 +1,10 @@
 from odoo import models, fields, api
 
-
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     brand_id = fields.Many2one('product.brand', string='Marque')
     modal_id = fields.Many2one('product.modal', string='Modèle', domain="[('brand_id', '=', brand_id)]")
-
     @api.onchange('brand_id')
     def _onchange_brand_id(self):
         """Clear the modal_id field when the brand_id changes."""
@@ -29,8 +27,6 @@ class ProductModal(models.Model):
 
     name = fields.Char('Modèle', required=True)
     brand_id = fields.Many2one('product.brand', string='Marque')
-
-from odoo import models, fields
 
 # Héritage de `stock.move.line`
 class StockMoveLine(models.Model):
@@ -101,13 +97,6 @@ class StockMoveLine(models.Model):
             for quant in quants:
                 quant.write({
                     'move_line_id': move_line.id,  # Link quant to move line
-                    'status': move_line.status,
-                    'employee_id': move_line.employee_id.id,
-                    'year': move_line.year,
-                    'cartouche': move_line.cartouche,
-                    'os': move_line.os,
-                    'description': move_line.description,
-                    'remarque': move_line.remarque,
                 })
 
         return res
